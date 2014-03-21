@@ -4,9 +4,13 @@ import java.util.Arrays;
 public class AI {
     ArrayList<int[][]> a = new ArrayList<>();
     ArrayList<Integer> b = new ArrayList<>();
-    public String name;
+    public String name = "defaultBot";
+    public boolean autoRestart = false;
+    public int trials = 0;
     public AI() {
         name = "AdityaBot";
+        autoRestart = true;
+        trials = 100;
     }
     public int ai_move(int[][] board) {
         int returned = 0;

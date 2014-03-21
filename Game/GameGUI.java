@@ -17,7 +17,6 @@ public class GameGUI extends javax.swing.JFrame {
     private static int currentScore = 0;
     private int highScore = updateHigh();
     private static boolean ai = true;
-//    private static String ai_name = ""; //figure out how to implement...until then have a public method called ai_move in ai class file
     public GameGUI() {
         initComponents();
         updateText();
@@ -1092,11 +1091,46 @@ public class GameGUI extends javax.swing.JFrame {
             new SwingWorker<Integer, Integer>() {
                 protected Integer doInBackground() {
                     final AI ai = new AI();
-                    while (!checkWin() && !checkLoss()) {
+                    jTextField1.setText(ai.name);
+                    if (ai.autoRestart) {
+                    int totalScore = 0;
+                    int totalWins = 0;
+                    int totalLosses = 0;
+                    int trials = ai.trials;
+                        while (ai.autoRestart) {
+                            int id = ai.ai_move(board);
+                            updateBoard(id);
+                            publish(0);
+                            //no high score stuff
+                            if (checkWin()) {
+                                totalWins++;
+                                totalScore += currentScore;
+                                restart();
+                                updateText();
+                                updateColors();
+                                ai.trials--;
+                            }
+                            if (checkLoss()) {
+                                totalLosses++;
+                                totalScore += currentScore;
+                                restart();
+                                updateText();
+                                updateColors();
+                                ai.trials--;
+                            }
+                            if (ai.trials == 0) ai.autoRestart = false;
+                        }
+                    double averageScore = totalScore / trials;
+                    double winPercent = 100 * totalWins / (totalWins + totalLosses);
+                    System.out.println("average score = " + averageScore);
+                    System.out.println("win percent = " + winPercent);
+                    ai.autoRestart = true;
+                    }
+                    while (!checkWin() && !checkLoss() && !ai.autoRestart) {
                         int id = ai.ai_move(board);
                         updateBoard(id);
                         publish(0);
-                        System.out.println(id);
+//                        System.out.println(id);
                         if (currentScore > highScore) {
                             highScore = currentScore;
                         }
