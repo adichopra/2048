@@ -997,50 +997,62 @@ public class GameGUI extends javax.swing.JFrame {
             if (l[i].getText().equals("")) {
                 j[i].setBackground(new java.awt.Color(204, 192, 179));
                 l[i].setForeground(new java.awt.Color(119, 110, 101));
+                l[i].setFont(new java.awt.Font("Arial", 1, 92));
             }
             else if (l[i].getText().equals("2")) {
                 j[i].setBackground(new java.awt.Color(238, 228, 218));
                 l[i].setForeground(new java.awt.Color(119, 110, 101));
+                l[i].setFont(new java.awt.Font("Arial", 1, 92));
             }
             else if (l[i].getText().equals("4")) {
                 j[i].setBackground(new java.awt.Color(237, 224, 200));
                 l[i].setForeground(new java.awt.Color(119, 110, 101));
+                l[i].setFont(new java.awt.Font("Arial", 1, 92));
             }
             else if (l[i].getText().equals("8")){
                 j[i].setBackground(new java.awt.Color(242, 177, 121));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 92));
             }
             else if (l[i].getText().equals("16")){
                 j[i].setBackground(new java.awt.Color(245, 149, 99));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 63));
             }
             else if (l[i].getText().equals("32")){
                 j[i].setBackground(new java.awt.Color(246, 124, 95));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 63));
             }
             else if (l[i].getText().equals("64")){
                 j[i].setBackground(new java.awt.Color(246, 94, 59));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 63));
             }
             else if (l[i].getText().equals("128")){
                 j[i].setBackground(new java.awt.Color(237, 207, 114));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 42));
             }
             else if (l[i].getText().equals("256")){
                 j[i].setBackground(new java.awt.Color(237, 204, 97));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 42));
             }
             else if (l[i].getText().equals("512")){
                 j[i].setBackground(new java.awt.Color(237, 200, 80));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 42));
             }
             else if (l[i].getText().equals("1024")){
                 j[i].setBackground(new java.awt.Color(237, 197, 63));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 31));
             }
             else if (l[i].getText().equals("2048")){
                 j[i].setBackground(new java.awt.Color(237, 194, 46));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
+                l[i].setFont(new java.awt.Font("Arial", 1, 31));
             }
             else {
                 j[i].setBackground(new java.awt.Color(237, 194, 46));
@@ -1115,6 +1127,7 @@ public class GameGUI extends javax.swing.JFrame {
                         int totalLosses = 0;
                         int trialHighScore = 0;
                         int trialLowScore = Integer.MAX_VALUE;
+                        int highTile = 0;
                         int trials = ai.trials;
                         while (ai.autoRestart) {
                             int id = ai.ai_move(board);
@@ -1127,6 +1140,7 @@ public class GameGUI extends javax.swing.JFrame {
                                 totalScore += currentScore;
                                 if (currentScore > trialHighScore) trialHighScore = currentScore;
                                 if (currentScore < trialLowScore) trialLowScore = currentScore;
+                                if (highestTile() > highTile) highTile = highestTile();
                                 restart();
                                 updateText();
                                 updateColors();
@@ -1137,6 +1151,7 @@ public class GameGUI extends javax.swing.JFrame {
                                 totalScore += currentScore;
                                 if (currentScore > trialHighScore) trialHighScore = currentScore;
                                 if (currentScore < trialLowScore) trialLowScore = currentScore;
+                                if (highestTile() > highTile) highTile = highestTile();
                                 restart();
                                 updateText();
                                 updateColors();
@@ -1150,6 +1165,7 @@ public class GameGUI extends javax.swing.JFrame {
                         System.out.println("win percent = " + winPercent);
                         System.out.println("high score = " + trialHighScore);
                         System.out.println("low score = " + trialLowScore);
+                        System.out.println("highest tile = " + highTile);
                         ai.autoRestart = true;
                     }
                     while (!checkWin() && !checkLoss() && !ai.autoRestart) {
