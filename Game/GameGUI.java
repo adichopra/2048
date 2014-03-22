@@ -75,6 +75,7 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         jFrame1.setAlwaysOnTop(true);
         jFrame1.setMinimumSize(new java.awt.Dimension(405, 523));
@@ -688,6 +689,15 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel23.setForeground(new java.awt.Color(119, 110, 101));
         jLabel23.setText("2048 tile!");
 
+        jCheckBox1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jCheckBox1.setText("AI?");
+        jCheckBox1.setFocusable(false);
+        jCheckBox1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCheckBox1StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -737,7 +747,9 @@ public class GameGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addGap(0, 0, 0)
-                        .addComponent(jLabel23))
+                        .addComponent(jLabel23)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox1))
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -750,7 +762,8 @@ public class GameGUI extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(jLabel23))
+                    .addComponent(jLabel23)
+                    .addComponent(jCheckBox1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -854,6 +867,12 @@ public class GameGUI extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jCheckBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox1StateChanged
+        if (jCheckBox1.isSelected()) ai = true;
+        else ai = false;
+        System.out.println(ai);
+    }//GEN-LAST:event_jCheckBox1StateChanged
     private void updateBoard(int n) {
         int[][] before = new int[4][4];
             System.arraycopy(board, 0, before, 0, board.length);
@@ -1175,6 +1194,7 @@ public class GameGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
