@@ -16,7 +16,7 @@ public class GameGUI extends javax.swing.JFrame {
     private static int[][] board = new int[4][4];
     private static int currentScore = 0;
     private int highScore = updateHigh();
-    private static boolean ai = true;
+    private static boolean ai = false;
     public GameGUI() {
         initComponents();
         updateText();
@@ -77,9 +77,7 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
 
         jFrame1.setAlwaysOnTop(true);
-        jFrame1.setMaximumSize(new java.awt.Dimension(405, 523));
         jFrame1.setMinimumSize(new java.awt.Dimension(405, 523));
-        jFrame1.setPreferredSize(new java.awt.Dimension(405, 523));
         jFrame1.setType(java.awt.Window.Type.POPUP);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 51));
@@ -180,7 +178,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel7.setToolTipText("");
         jPanel7.setFocusable(false);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(119, 110, 101));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("" + board[0][0]);
@@ -207,7 +205,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel8.setToolTipText("");
         jPanel8.setMaximumSize(null);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(119, 110, 101));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("" + board[0][1]);
@@ -234,7 +232,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel9.setToolTipText("");
         jPanel9.setMaximumSize(null);
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(119, 110, 101));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("" + board[0][2]);
@@ -261,7 +259,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel10.setToolTipText("");
         jPanel10.setMaximumSize(null);
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(119, 110, 101));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("" + board[0][3]);
@@ -288,7 +286,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel17.setToolTipText("");
         jPanel17.setMaximumSize(null);
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(119, 110, 101));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("" + board[1][0]);
@@ -315,7 +313,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel18.setToolTipText("");
         jPanel18.setMaximumSize(null);
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(119, 110, 101));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("" + board[1][1]);
@@ -342,7 +340,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel19.setToolTipText("");
         jPanel19.setMaximumSize(null);
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(119, 110, 101));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("" + board[1][2]);
@@ -369,7 +367,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel20.setToolTipText("");
         jPanel20.setMaximumSize(null);
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(119, 110, 101));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("" + board[1][3]);
@@ -396,7 +394,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel31.setToolTipText("");
         jPanel31.setMaximumSize(null);
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(119, 110, 101));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("" + board[2][0]);
@@ -423,7 +421,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel32.setToolTipText("");
         jPanel32.setMaximumSize(null);
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(119, 110, 101));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("" + board[2][1]);
@@ -450,7 +448,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel33.setToolTipText("");
         jPanel33.setMaximumSize(null);
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(119, 110, 101));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("" + board[2][2]);
@@ -477,7 +475,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel34.setToolTipText("");
         jPanel34.setMaximumSize(null);
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(119, 110, 101));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("" + board[2][3]);
@@ -504,7 +502,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel35.setToolTipText("");
         jPanel35.setMaximumSize(null);
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(119, 110, 101));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("" + board[3][0]);
@@ -531,7 +529,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel36.setToolTipText("");
         jPanel36.setMaximumSize(null);
 
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(119, 110, 101));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("" + board[3][1]);
@@ -558,7 +556,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel37.setToolTipText("");
         jPanel37.setMaximumSize(null);
 
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(119, 110, 101));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("" + board[3][2]);
@@ -585,7 +583,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel38.setToolTipText("");
         jPanel38.setMaximumSize(null);
 
-        jLabel16.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 31)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(119, 110, 101));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("" + board[3][3]);
@@ -1093,18 +1091,23 @@ public class GameGUI extends javax.swing.JFrame {
                     final AI ai = new AI();
                     jTextField1.setText(ai.name);
                     if (ai.autoRestart) {
-                    int totalScore = 0;
-                    int totalWins = 0;
-                    int totalLosses = 0;
-                    int trials = ai.trials;
+                        int totalScore = 0;
+                        int totalWins = 0;
+                        int totalLosses = 0;
+                        int trialHighScore = 0;
+                        int trialLowScore = Integer.MAX_VALUE;
+                        int trials = ai.trials;
                         while (ai.autoRestart) {
                             int id = ai.ai_move(board);
+                            System.out.println(id);
                             updateBoard(id);
                             publish(0);
                             //no high score stuff
                             if (checkWin()) {
                                 totalWins++;
                                 totalScore += currentScore;
+                                if (currentScore > trialHighScore) trialHighScore = currentScore;
+                                if (currentScore < trialLowScore) trialLowScore = currentScore;
                                 restart();
                                 updateText();
                                 updateColors();
@@ -1113,6 +1116,8 @@ public class GameGUI extends javax.swing.JFrame {
                             if (checkLoss()) {
                                 totalLosses++;
                                 totalScore += currentScore;
+                                if (currentScore > trialHighScore) trialHighScore = currentScore;
+                                if (currentScore < trialLowScore) trialLowScore = currentScore;
                                 restart();
                                 updateText();
                                 updateColors();
@@ -1120,11 +1125,13 @@ public class GameGUI extends javax.swing.JFrame {
                             }
                             if (ai.trials == 0) ai.autoRestart = false;
                         }
-                    double averageScore = totalScore / trials;
-                    double winPercent = 100 * totalWins / (totalWins + totalLosses);
-                    System.out.println("average score = " + averageScore);
-                    System.out.println("win percent = " + winPercent);
-                    ai.autoRestart = true;
+                        double averageScore = totalScore / trials;
+                        double winPercent = 100 * totalWins / (totalWins + totalLosses);
+                        System.out.println("average score = " + averageScore);
+                        System.out.println("win percent = " + winPercent);
+                        System.out.println("high score = " + trialHighScore);
+                        System.out.println("low score = " + trialLowScore);
+                        ai.autoRestart = true;
                     }
                     while (!checkWin() && !checkLoss() && !ai.autoRestart) {
                         int id = ai.ai_move(board);
@@ -1135,7 +1142,7 @@ public class GameGUI extends javax.swing.JFrame {
                             highScore = currentScore;
                         }
                         try {
-                            Thread.sleep(10);
+                            Thread.sleep(100);
                         } catch(InterruptedException ex) {
                             Thread.currentThread().interrupt();
                         }
