@@ -3,7 +3,7 @@
 
 A Java-based version of [2048](http://gabrielecirulli.github.io/2048/)
 
-![Alt text](http://i.imgur.com/JgIAVTW.png)
+![Alt text](http://i.imgur.com/3N3a2Pw.png)
 
 Compile
 -------
