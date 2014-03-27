@@ -17,6 +17,8 @@ public class GameGUI extends javax.swing.JFrame {
     private static int currentScore = 0;
     private int highScore = updateHigh();
     private static boolean ai = false;
+    public static int win_target = 2048;
+    public static int sleep_time = 10;
     public GameGUI() {
         initComponents();
         updateText();
@@ -794,7 +796,7 @@ public class GameGUI extends javax.swing.JFrame {
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         ai();
         int id = evt.getKeyCode();
-        updateBoard(id);
+        updateBoard(id, true);
         if (currentScore > highScore) {
             highScore = currentScore;
         }
@@ -871,72 +873,82 @@ public class GameGUI extends javax.swing.JFrame {
     private void jCheckBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox1StateChanged
         if (jCheckBox1.isSelected()) ai = true;
         else ai = false;
-        System.out.println(ai);
     }//GEN-LAST:event_jCheckBox1StateChanged
-    private void updateBoard(int n) {
-        int[][] before = new int[4][4];
-            System.arraycopy(board, 0, before, 0, board.length);
-            if (n == KeyEvent.VK_LEFT) {
-                pushLeft();
-                //check tiles with x > 0, from left to right to see if they collapse
-                for (int i = 0; i < 4; i++) {
-                    for (int j = 1; j < 4; j++) {
-                        if (board[i][j-1] == board[i][j]) {
-                            board[i][j-1] *= 2;
+    public static void printBoard(int[][] board) {
+        for (int[] a: board) {
+            for (int i: a) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
+    }
+    private void updateBoard(int n, boolean real) {
+        int[][] before = deepCopy(board);
+        if (n == KeyEvent.VK_LEFT) {
+            pushLeft();
+            //check tiles with x > 0, from left to right to see if they collapse
+            for (int i = 0; i < 4; i++) {
+                for (int j = 1; j < 4; j++) {
+                    if (board[i][j-1] == board[i][j]) {
+                        board[i][j-1] *= 2;
+                        if (real) {
                             currentScore += board[i][j-1];
-                            board[i][j] = 0; //temporarily leave a 0 which will go away when we push again
+                        }
+                        board[i][j] = 0; //temporarily leave a 0 which will go away when we push again
+                    }
+                }
+            }
+            pushLeft();
+            //add a random 2/4 in a random empty tile ONLY IF BOARD HAS CHANGED
+            if (!Arrays.deepEquals(before, board)) {
+                ArrayList<int[]> a = new ArrayList<int[]>();
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        if (board[i][j] == 0) {
+                            int[] coords = {i, j};
+                            a.add(coords);
                         }
                     }
                 }
-                pushLeft();
-                //add a random 2/4 in a random empty tile ONLY IF BOARD HAS CHANGED
-                if (!Arrays.deepEquals(before, board)) {
-                    ArrayList<int[]> a = new ArrayList<int[]>();
-                    for (int i = 0; i < 4; i++) {
-                        for (int j = 0; j < 4; j++) {
-                            if (board[i][j] == 0) {
-                                int[] coords = {i, j};
-                                a.add(coords);
-                            }
-                        }
-                    }
-                    Collections.shuffle(a);
-                    board[a.get(0)[0]][a.get(0)[1]] = ((int) (Math.random() * 2) + 1) * 2;
-                }
+                Collections.shuffle(a);
+                int random = (int) (Math.random() * 10);
+                if (random < 2) board[a.get(0)[0]][a.get(0)[1]] = 4;
+                else board[a.get(0)[0]][a.get(0)[1]] = 2;
             }
-            else if (n == KeyEvent.VK_UP) {
-                rotateCCW();
-                updateBoard(KeyEvent.VK_LEFT);
-                rotateCW();
-            }
-            else if (n == KeyEvent.VK_RIGHT) {
-                rotateCCW();
-                rotateCCW();
-                updateBoard(KeyEvent.VK_LEFT);
-                rotateCW();
-                rotateCW();
-            }
-            else if (n == KeyEvent.VK_DOWN) {
-                rotateCW();
-                updateBoard(KeyEvent.VK_LEFT);
-                rotateCCW();
-            }
+        }
+        else if (n == KeyEvent.VK_UP) {
+            rotateCCW();
+            updateBoard(KeyEvent.VK_LEFT, real);
+            rotateCW();
+        }
+        else if (n == KeyEvent.VK_RIGHT) {
+            rotateCCW();
+            rotateCCW();
+            updateBoard(KeyEvent.VK_LEFT, real);
+            rotateCW();
+            rotateCW();
+        }
+        else if (n == KeyEvent.VK_DOWN) {
+            rotateCW();
+            updateBoard(KeyEvent.VK_LEFT, real);
+            rotateCCW();
+        }
     }
     private void pushLeft() {
-            //move tiles with values as far left as possible
-            for (int i = 0; i < 4; i++) {
-                    int[] row = new int[4];
-                    for (int j = 0; j < 4; j++) {
-                            if (board[i][j] != 0) {
-                                    int curr = 0;
-                                    while(row[curr] != 0) {
-                                            curr++;
-                                    }
-                                    row[curr] = board[i][j];
-                            }
+        //move tiles with values as far left as possible
+        for (int i = 0; i < 4; i++) {
+            int[] row = new int[4];
+            for (int j = 0; j < 4; j++) {
+                if (board[i][j] != 0) {
+                    int curr = 0;
+                    while(row[curr] != 0) {
+                        curr++;
                     }
-                    board[i] = row;
+                    row[curr] = board[i][j];
+                }
             }
+            board[i] = row;
+        }
     }
     private void rotateCW() {
         int[][] rotated = new int[4][4];
@@ -969,6 +981,15 @@ public class GameGUI extends javax.swing.JFrame {
             int value2 = ((int) (Math.random() * 2) + 1) * 2;
             board[pos1[0]][pos1[1]] = value1;
             board[pos2[0]][pos2[1]] = value2;
+    }
+    private static int[][] deepCopy(int[][] board) {
+        int[][] copy = new int[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                copy[i][j] = board[i][j];
+            }
+        }
+        return copy;
     }
     private void updateText() {
         jLabel1.setText(board[0][0] == 0 ? "": "" + board[0][0]);
@@ -1063,28 +1084,28 @@ public class GameGUI extends javax.swing.JFrame {
     private boolean checkWin() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == 2048) return true;
+                if (board[i][j] == win_target) return true;
             }
         }
         return false;
     }
     private boolean checkLoss() {
-        int[][] before = new int[board.length][board[0].length];
+        int[][] before = deepCopy(board);
         System.arraycopy(board, 0, before, 0, board.length);
         boolean leftChange = true;
-        updateBoard(KeyEvent.VK_LEFT);
+        updateBoard(KeyEvent.VK_LEFT, false);
         if (Arrays.deepEquals(before, board)) leftChange = false;
         board = before;
         boolean upChange = true;
-        updateBoard(KeyEvent.VK_UP);
+        updateBoard(KeyEvent.VK_UP, false);
         if (Arrays.deepEquals(before, board)) upChange = false;
         board = before;
         boolean rightChange = true;
-        updateBoard(KeyEvent.VK_RIGHT);
+        updateBoard(KeyEvent.VK_RIGHT, false);
         if (Arrays.deepEquals(before, board)) rightChange = false;
         board = before;
         boolean downChange = true;
-        updateBoard(KeyEvent.VK_DOWN);
+        updateBoard(KeyEvent.VK_DOWN, false);
         if (Arrays.deepEquals(before, board)) downChange = false;
         board = before;
         if (leftChange || upChange || rightChange || downChange) return false;
@@ -1131,8 +1152,12 @@ public class GameGUI extends javax.swing.JFrame {
                         int trials = ai.trials;
                         while (ai.autoRestart) {
                             int id = ai.ai_move(board);
-                            System.out.println(id);
-                            updateBoard(id);
+                            updateBoard(id, true);
+                            try {
+                                Thread.sleep(sleep_time);
+                            } catch(InterruptedException ex) {
+                                Thread.currentThread().interrupt();
+                            }
                             publish(0);
                             //no high score stuff
                             if (checkWin()) {
@@ -1162,7 +1187,7 @@ public class GameGUI extends javax.swing.JFrame {
                         double averageScore = totalScore / trials;
                         double winPercent = 100 * totalWins / (totalWins + totalLosses);
                         System.out.println("average score = " + averageScore);
-                        System.out.println("win percent = " + winPercent);
+                        System.out.println("win percent = " + winPercent + "%");
                         System.out.println("high score = " + trialHighScore);
                         System.out.println("low score = " + trialLowScore);
                         System.out.println("highest tile = " + highTile);
@@ -1170,14 +1195,13 @@ public class GameGUI extends javax.swing.JFrame {
                     }
                     while (!checkWin() && !checkLoss() && !ai.autoRestart) {
                         int id = ai.ai_move(board);
-                        updateBoard(id);
+                        updateBoard(id, true);
                         publish(0);
-//                        System.out.println(id);
                         if (currentScore > highScore) {
                             highScore = currentScore;
                         }
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(sleep_time);
                         } catch(InterruptedException ex) {
                             Thread.currentThread().interrupt();
                         }
