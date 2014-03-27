@@ -18,7 +18,8 @@ Use arrow keys to move. When using an AI, hit any key to begin simulation. Score
   <img src="http://i.imgur.com/x1GKUQV.png" alt="Screenshot"/>
 </p>
 ## License
-Based on [2048](https://github.com/gabrielecirulli/2048) by Gabriele Cirulli.
+Based on [2048](https://github.com/gabrielecirulli/2048) by Gabriele Cirulli. 
+
 Released under the [MIT license.](https://github.com/gabrielecirulli/2048/blob/master/LICENSE.txt)
 ## Future plans
  - Add features to README.md
@@ -28,3 +29,4 @@ Released under the [MIT license.](https://github.com/gabrielecirulli/2048/blob/m
  - AIvAI?
  - More statistics
  - > 2048 tile
+ - Comment code
