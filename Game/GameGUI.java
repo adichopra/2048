@@ -17,8 +17,10 @@ public class GameGUI extends javax.swing.JFrame {
     private static int currentScore = 0;
     private int highScore = updateHigh();
     private static boolean ai = false;
+    private static boolean ai_not_running = true;
     public static int win_target = 2048;
     public static int sleep_time = 10;
+    public static boolean funky_fonts = false;
     public GameGUI() {
         initComponents();
         updateText();
@@ -794,7 +796,7 @@ public class GameGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        ai();
+        if (ai_not_running) ai();
         int id = evt.getKeyCode();
         updateBoard(id, true);
         if (currentScore > highScore) {
@@ -1018,65 +1020,65 @@ public class GameGUI extends javax.swing.JFrame {
             if (l[i].getText().equals("")) {
                 j[i].setBackground(new java.awt.Color(204, 192, 179));
                 l[i].setForeground(new java.awt.Color(119, 110, 101));
-                l[i].setFont(new java.awt.Font("Arial", 1, 92));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 92));
             }
             else if (l[i].getText().equals("2")) {
                 j[i].setBackground(new java.awt.Color(238, 228, 218));
                 l[i].setForeground(new java.awt.Color(119, 110, 101));
-                l[i].setFont(new java.awt.Font("Arial", 1, 92));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 92));
             }
             else if (l[i].getText().equals("4")) {
                 j[i].setBackground(new java.awt.Color(237, 224, 200));
                 l[i].setForeground(new java.awt.Color(119, 110, 101));
-                l[i].setFont(new java.awt.Font("Arial", 1, 92));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 92));
             }
             else if (l[i].getText().equals("8")){
                 j[i].setBackground(new java.awt.Color(242, 177, 121));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 92));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 92));
             }
             else if (l[i].getText().equals("16")){
                 j[i].setBackground(new java.awt.Color(245, 149, 99));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 63));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 63));
             }
             else if (l[i].getText().equals("32")){
                 j[i].setBackground(new java.awt.Color(246, 124, 95));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 63));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 63));
             }
             else if (l[i].getText().equals("64")){
                 j[i].setBackground(new java.awt.Color(246, 94, 59));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 63));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 63));
             }
             else if (l[i].getText().equals("128")){
                 j[i].setBackground(new java.awt.Color(237, 207, 114));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 42));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 42));
             }
             else if (l[i].getText().equals("256")){
                 j[i].setBackground(new java.awt.Color(237, 204, 97));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 42));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 42));
             }
             else if (l[i].getText().equals("512")){
                 j[i].setBackground(new java.awt.Color(237, 200, 80));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 42));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 42));
             }
             else if (l[i].getText().equals("1024")){
                 j[i].setBackground(new java.awt.Color(237, 197, 63));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 31));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 31));
             }
             else if (l[i].getText().equals("2048")){
                 j[i].setBackground(new java.awt.Color(237, 194, 46));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
-                l[i].setFont(new java.awt.Font("Arial", 1, 31));
+                if (funky_fonts) l[i].setFont(new java.awt.Font("Arial", 1, 31));
             }
             else {
-                j[i].setBackground(new java.awt.Color(237, 194, 46));
+                j[i].setBackground(new java.awt.Color(0, 0, 0));
                 l[i].setForeground(new java.awt.Color(255, 255, 255));
             }
         }
@@ -1091,7 +1093,6 @@ public class GameGUI extends javax.swing.JFrame {
     }
     private boolean checkLoss() {
         int[][] before = deepCopy(board);
-        System.arraycopy(board, 0, before, 0, board.length);
         boolean leftChange = true;
         updateBoard(KeyEvent.VK_LEFT, false);
         if (Arrays.deepEquals(before, board)) leftChange = false;
@@ -1138,6 +1139,7 @@ public class GameGUI extends javax.swing.JFrame {
     }
     private void ai() {
         if (ai) {
+            ai_not_running = false;
             new SwingWorker<Integer, Integer>() {
                 protected Integer doInBackground() {
                     final AI ai = new AI();
@@ -1149,6 +1151,7 @@ public class GameGUI extends javax.swing.JFrame {
                         int trialHighScore = 0;
                         int trialLowScore = Integer.MAX_VALUE;
                         int highTile = 0;
+                        ArrayList<Integer> tileFreq = new ArrayList<>();
                         int trials = ai.trials;
                         while (ai.autoRestart) {
                             int id = ai.ai_move(board);
@@ -1183,15 +1186,41 @@ public class GameGUI extends javax.swing.JFrame {
                                 ai.trials--;
                             }
                             if (ai.trials == 0) ai.autoRestart = false;
+                            tileFreq.add(highTile);
+                            highTile = 0;
                         }
                         double averageScore = totalScore / trials;
-                        double winPercent = 100 * totalWins / (totalWins + totalLosses);
+                        double winPercent = 100.0 * totalWins / (totalWins + totalLosses);
+                        int[] freqs = new int[11];
+                        freqs[0] = Collections.frequency(tileFreq, 2048);
+                        freqs[1] = Collections.frequency(tileFreq, 1024) + freqs[0];
+                        freqs[2] = Collections.frequency(tileFreq, 512) + freqs[1];
+                        freqs[3] = Collections.frequency(tileFreq, 256) + freqs[2];
+                        freqs[4] = Collections.frequency(tileFreq, 128) + freqs[3];
+                        freqs[5] = Collections.frequency(tileFreq, 64) + freqs[4];
+                        freqs[6] = Collections.frequency(tileFreq, 32) + freqs[5];
+                        freqs[7] = Collections.frequency(tileFreq, 16) + freqs[6];
+                        freqs[8] = Collections.frequency(tileFreq, 8) + freqs[7];
+                        freqs[9] = Collections.frequency(tileFreq, 4) + freqs[8];
+                        freqs[10] = Collections.frequency(tileFreq, 2) + freqs[9];
                         System.out.println("average score = " + averageScore);
                         System.out.println("win percent = " + winPercent + "%");
                         System.out.println("high score = " + trialHighScore);
                         System.out.println("low score = " + trialLowScore);
-                        System.out.println("highest tile = " + highTile);
+                        System.out.println("Tile frequenceies: ");
+                        System.out.println("2048: " + freqs[0] * 100.0 / trials + "%");
+                        System.out.println("1024: " + freqs[1] * 100.0 / trials + "%");
+                        System.out.println("512: " + freqs[2] * 100.0 / trials + "%");                        
+                        System.out.println("256: " + freqs[3] * 100.0 / trials + "%");
+                        System.out.println("128: " + freqs[4] * 100.0 / trials + "%");
+                        System.out.println("64: " + freqs[5] * 100.0 / trials + "%");
+                        System.out.println("32: " + freqs[6] * 100.0 / trials + "%");
+                        System.out.println("16: " + freqs[7] * 100.0 / trials + "%");
+                        System.out.println("8: " + freqs[8] * 100.0 / trials + "%");
+                        System.out.println("4: " + freqs[9] * 100.0 / trials + "%");
+                        System.out.println("2: " + freqs[10] * 100.0 / trials + "%");
                         ai.autoRestart = true;
+                        ai_not_running = true;
                     }
                     while (!checkWin() && !checkLoss() && !ai.autoRestart) {
                         int id = ai.ai_move(board);
