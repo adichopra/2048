@@ -18,13 +18,17 @@ public class GameGUI extends javax.swing.JFrame {
     private int highScore = updateHigh();
     private static boolean ai = false;
     private static boolean ai_not_running = true;
+    private static boolean ai_autoRestart = false;
+    private static String ai_name = "defaultBot";
+    private static int ai_trials = 0;
     public static int win_target = 2048;
-    public static int sleep_time = 10;
+    public static int sleep_time = 0;
     public static boolean funky_fonts = false;
     public GameGUI() {
         initComponents();
         updateText();
         jFrame1.setVisible(false);
+        jFrame2.setVisible(false);
         updateColors();
     }
 
@@ -38,6 +42,15 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jFrame2 = new javax.swing.JFrame();
+        jTextField2 = new javax.swing.JTextField();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jSlider1 = new javax.swing.JSlider();
+        jSlider2 = new javax.swing.JSlider();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jButton1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -79,7 +92,7 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jButton2 = new javax.swing.JButton();
 
         jFrame1.setAlwaysOnTop(true);
         jFrame1.setMinimumSize(new java.awt.Dimension(405, 523));
@@ -165,6 +178,116 @@ public class GameGUI extends javax.swing.JFrame {
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jFrame2.setMaximumSize(new java.awt.Dimension(400, 200));
+        jFrame2.setMinimumSize(new java.awt.Dimension(400, 200));
+        jFrame2.setPreferredSize(new java.awt.Dimension(400, 200));
+
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setText("defaultBot");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.setText("Auto Restart?");
+        jCheckBox2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCheckBox2StateChanged(evt);
+            }
+        });
+
+        jSlider1.setMajorTickSpacing(100);
+        jSlider1.setMaximum(10000);
+        jSlider1.setMinorTickSpacing(1);
+        jSlider1.setValue(0);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+
+        jSlider2.setMajorTickSpacing(10);
+        jSlider2.setMaximum(1000);
+        jSlider2.setMinorTickSpacing(1);
+        jSlider2.setValue(0);
+        jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider2StateChanged(evt);
+            }
+        });
+
+        jLabel25.setText(jSlider1.getValue() + " Trials");
+
+        jLabel27.setText("Sleep Time in ms: " + jSlider2.getValue());
+
+        jCheckBox3.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jCheckBox3.setText("AI?");
+        jCheckBox3.setFocusable(false);
+        jCheckBox3.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCheckBox3StateChanged(evt);
+            }
+        });
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Okay");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
+        jFrame2.getContentPane().setLayout(jFrame2Layout);
+        jFrame2Layout.setHorizontalGroup(
+            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jFrame2Layout.createSequentialGroup()
+                .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jFrame2Layout.createSequentialGroup()
+                .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jFrame2Layout.createSequentialGroup()
+                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jFrame2Layout.createSequentialGroup()
+                        .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextField2)
+                            .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox3)
+                            .addGroup(jFrame2Layout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(jButton1)))))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jFrame2Layout.setVerticalGroup(
+            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jFrame2Layout.createSequentialGroup()
+                .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(0, 0, 0)
+                .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox3))
+                .addGap(0, 0, 0)
+                .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSlider2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -693,12 +816,22 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel23.setForeground(new java.awt.Color(119, 110, 101));
         jLabel23.setText("2048 tile!");
 
-        jCheckBox1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jCheckBox1.setText("AI?");
-        jCheckBox1.setFocusable(false);
-        jCheckBox1.addChangeListener(new javax.swing.event.ChangeListener() {
+        jButton2.setText("AI");
+        jButton2.setFocusable(false);
+        jButton2.setRequestFocusEnabled(false);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jCheckBox1StateChanged(evt);
+                jButton2StateChanged(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -731,7 +864,8 @@ public class GameGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton2)))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -751,9 +885,7 @@ public class GameGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addGap(0, 0, 0)
-                        .addComponent(jLabel23)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox1))
+                        .addComponent(jLabel23))
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -767,7 +899,7 @@ public class GameGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(jLabel23)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -872,10 +1004,47 @@ public class GameGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jCheckBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox1StateChanged
-        if (jCheckBox1.isSelected()) ai = true;
-        else ai = false;
-    }//GEN-LAST:event_jCheckBox1StateChanged
+    private void jCheckBox3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox3StateChanged
+        ai = jCheckBox3.isSelected();
+    }//GEN-LAST:event_jCheckBox3StateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jFrame2.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        ai_trials = jSlider1.getValue();
+        jLabel25.setText(jSlider1.getValue() + " Trials");
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
+        sleep_time = jSlider2.getValue();
+        jLabel27.setText("Sleep Time in ms: " + jSlider2.getValue());
+    }//GEN-LAST:event_jSlider2StateChanged
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox2StateChanged
+        ai_autoRestart = jCheckBox2.isSelected();
+    }//GEN-LAST:event_jCheckBox2StateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jButton2StateChanged
+        
+    }//GEN-LAST:event_jButton2StateChanged
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        jFrame2.setVisible(true);
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        ai_name = jTextField2.getText();
+    }//GEN-LAST:event_jTextField2ActionPerformed
     public static void printBoard(int[][] board) {
         for (int[] a: board) {
             for (int i: a) {
@@ -1143,8 +1312,8 @@ public class GameGUI extends javax.swing.JFrame {
             new SwingWorker<Integer, Integer>() {
                 protected Integer doInBackground() {
                     final AI ai = new AI();
-                    jTextField1.setText(ai.name);
-                    if (ai.autoRestart) {
+                    jTextField1.setText(ai_name);
+                    if (ai_autoRestart) {
                         int totalScore = 0;
                         int totalWins = 0;
                         int totalLosses = 0;
@@ -1152,8 +1321,8 @@ public class GameGUI extends javax.swing.JFrame {
                         int trialLowScore = Integer.MAX_VALUE;
                         int highTile = 0;
                         ArrayList<Integer> tileFreq = new ArrayList<>();
-                        int trials = ai.trials;
-                        while (ai.autoRestart) {
+                        int trials = ai_trials;
+                        while (ai_autoRestart) {
                             int id = ai.ai_move(board);
                             updateBoard(id, true);
                             try {
@@ -1172,7 +1341,7 @@ public class GameGUI extends javax.swing.JFrame {
                                 restart();
                                 updateText();
                                 updateColors();
-                                ai.trials--;
+                                ai_trials--;
                             }
                             if (checkLoss()) {
                                 totalLosses++;
@@ -1183,9 +1352,9 @@ public class GameGUI extends javax.swing.JFrame {
                                 restart();
                                 updateText();
                                 updateColors();
-                                ai.trials--;
+                                ai_trials--;
                             }
-                            if (ai.trials == 0) ai.autoRestart = false;
+                            if (ai_trials == 0) ai_autoRestart = false;
                             tileFreq.add(highTile);
                             highTile = 0;
                         }
@@ -1203,6 +1372,8 @@ public class GameGUI extends javax.swing.JFrame {
                         freqs[8] = Collections.frequency(tileFreq, 8) + freqs[7];
                         freqs[9] = Collections.frequency(tileFreq, 4) + freqs[8];
                         freqs[10] = Collections.frequency(tileFreq, 2) + freqs[9];
+                        System.out.println("AI: " + ai_name);
+                        System.out.println("# of trials: " + trials);
                         System.out.println("average score = " + averageScore);
                         System.out.println("win percent = " + winPercent + "%");
                         System.out.println("high score = " + trialHighScore);
@@ -1219,10 +1390,10 @@ public class GameGUI extends javax.swing.JFrame {
                         System.out.println("8: " + freqs[8] * 100.0 / trials + "%");
                         System.out.println("4: " + freqs[9] * 100.0 / trials + "%");
                         System.out.println("2: " + freqs[10] * 100.0 / trials + "%");
-                        ai.autoRestart = true;
+                        ai_autoRestart = true;
                         ai_not_running = true;
                     }
-                    while (!checkWin() && !checkLoss() && !ai.autoRestart) {
+                    while (!checkWin() && !checkLoss() && !ai_autoRestart) {
                         int id = ai.ai_move(board);
                         updateBoard(id, true);
                         publish(0);
@@ -1263,8 +1434,12 @@ public class GameGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JFrame jFrame2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1282,7 +1457,9 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1310,6 +1487,9 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider jSlider2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
