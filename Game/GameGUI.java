@@ -13,17 +13,36 @@ import java.util.Scanner;
 import javax.swing.*; 
 
 public class GameGUI extends javax.swing.JFrame {
+    //Place where scores will be stored
+    private static final String filename = "scores.txt";
+    //Integer array to represent board
     private static int[][] board = new int[4][4];
+    //Current player's score
     private static int currentScore = 0;
+    //High score (of all time according to scores file)
     private int highScore = updateHigh();
-    private static boolean ai = false;
+    //Is the AI not running?
     private static boolean ai_not_running = true;
+    
+    //[SETTINGS]
+    
+    //Does the user want the AI to automatically continue after win/loss?
+    private static boolean ai = false;
+    //Whether the user wants to run the AI or not
     private static boolean ai_autoRestart = false;
+    //AI's name
     private static String ai_name = "defaultBot";
+    //How many trials to run with the AI (only matters if autoRestart)
     private static int ai_trials = 0;
-    public static int win_target = 2048;
-    public static int sleep_time = 0;
+    //Cool, dynamic fonts!
     public static boolean funky_fonts = false;
+    //How much delay does the user want after each AI move
+    public static int sleep_time = 0;
+    //Maybe 2048 is too easy/hard; go for any win target (not everything is achievable)
+    public static int win_target = 2048;
+    
+    //[/SETTINGS]
+    
     public GameGUI() {
         initComponents();
         updateText();
@@ -139,11 +158,6 @@ public class GameGUI extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(117, 102, 83));
         jTextField1.setText("Enter your name");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,9 +194,7 @@ public class GameGUI extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jFrame2.setMaximumSize(new java.awt.Dimension(400, 200));
         jFrame2.setMinimumSize(new java.awt.Dimension(400, 200));
-        jFrame2.setPreferredSize(new java.awt.Dimension(400, 200));
 
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField2.setText("defaultBot");
@@ -291,7 +303,7 @@ public class GameGUI extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("2048 in Java by Aditya Chopra");
+        setTitle(win_target + " in Java by Aditya Chopra");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(null);
@@ -806,7 +818,7 @@ public class GameGUI extends javax.swing.JFrame {
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 60)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(119, 110, 101));
-        jLabel21.setText("2048");
+        jLabel21.setText("" + win_target);
 
         jLabel22.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(119, 110, 101));
@@ -814,7 +826,7 @@ public class GameGUI extends javax.swing.JFrame {
 
         jLabel23.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(119, 110, 101));
-        jLabel23.setText("2048 tile!");
+        jLabel23.setText(win_target + " tile!");
 
         jButton2.setText("AI");
         jButton2.setFocusable(false);
@@ -840,7 +852,6 @@ public class GameGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -864,8 +875,7 @@ public class GameGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton2)))
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -885,7 +895,9 @@ public class GameGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addGap(0, 0, 0)
-                        .addComponent(jLabel23))
+                        .addComponent(jLabel23)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -948,11 +960,11 @@ public class GameGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_formKeyPressed
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        File f = new File("scores.txt");
+        File f = new File(filename);
         ArrayList<String[]> lines = new ArrayList<>();
         if(f.exists() && !f.isDirectory()) { 
             try {
-                Scanner input = new Scanner(new File("scores.txt"));
+                Scanner input = new Scanner(new File(filename));
                 while (input.hasNextLine()) {
                     lines.add(input.nextLine().split(": "));
                 }
@@ -962,13 +974,15 @@ public class GameGUI extends javax.swing.JFrame {
                 }
                 String[] now = {jTextField1.getText() + ": ", "" + currentScore, ": " + highestTile()};
                 lines.add(now);
-                Comparator<String[]> custom = new Comparator<String[]>() {
+                Comparator<String[]> custom;
+                custom = new Comparator<String[]>() {
+                    @Override
                     public int compare(String[] a1, String[] a2) {
                         return Integer.parseInt(a2[1]) - Integer.parseInt(a1[1]);
                     }
                 };
                 Collections.sort(lines, custom);
-            } catch (IOException ex) {
+            } catch (FileNotFoundException ex) {
                 System.out.println("This should only happen once in the beginning.");
             }
         }
@@ -978,17 +992,15 @@ public class GameGUI extends javax.swing.JFrame {
         }
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter("scores.txt", "UTF-8");
+            writer = new PrintWriter(filename, "UTF-8");
             for (String[] s: lines) {
                 for (String s1: s) {
                     writer.print(s1);
                 }
                 writer.println();
             }
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             System.out.println("This should never happen.");
-        } catch (UnsupportedEncodingException ex) {
-            System.out.println("This probably should never happen.");
         } finally {
             writer.close();
         }
@@ -999,10 +1011,6 @@ public class GameGUI extends javax.swing.JFrame {
         jFrame1.setVisible(false);
         updateHigh();
     }//GEN-LAST:event_jPanel2MouseClicked
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jCheckBox3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox3StateChanged
         ai = jCheckBox3.isSelected();
@@ -1292,7 +1300,7 @@ public class GameGUI extends javax.swing.JFrame {
     }
     private int updateHigh() {
         try {
-            Scanner input = new Scanner(new File("scores.txt"));
+            Scanner input = new Scanner(new File(filename));
             ArrayList<String[]> lines = new ArrayList<>();
             while (input.hasNextLine())
                 lines.add(input.nextLine().split(": "));
@@ -1302,7 +1310,8 @@ public class GameGUI extends javax.swing.JFrame {
                 }
             }
         } catch (FileNotFoundException ex) {
-            System.out.println("This should never happen.");
+            //return 0 if file doesn't exist; file will be created later
+            return 0;
         }
         return highScore;
     }
@@ -1323,14 +1332,14 @@ public class GameGUI extends javax.swing.JFrame {
                         ArrayList<Integer> tileFreq = new ArrayList<>();
                         int trials = ai_trials;
                         while (ai_autoRestart) {
-                            int id = ai.ai_move(board);
+                            int id = ai.ai_move(deepCopy(board));
                             updateBoard(id, true);
+                            publish(0);
                             try {
                                 Thread.sleep(sleep_time);
                             } catch(InterruptedException ex) {
                                 Thread.currentThread().interrupt();
                             }
-                            publish(0);
                             //no high score stuff
                             if (checkWin()) {
                                 totalWins++;
@@ -1394,7 +1403,7 @@ public class GameGUI extends javax.swing.JFrame {
                         ai_not_running = true;
                     }
                     while (!checkWin() && !checkLoss() && !ai_autoRestart) {
-                        int id = ai.ai_move(board);
+                        int id = ai.ai_move(deepCopy(board));
                         updateBoard(id, true);
                         publish(0);
                         if (currentScore > highScore) {
