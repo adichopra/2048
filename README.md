@@ -11,22 +11,21 @@ To use an AI, also compile:
 
 Use arrow keys to move. When using an AI, hit any key to begin simulation. Score will be stored in scores.txt
 ### Contributions
- - [randomguy64](https://github.com/randomguy64) many contributions
+ - [randomguy64](https://github.com/randomguy64) Extensive testing/suggestions
 
 ### Screenshot
 <p align="center">
-  <img src="http://i.imgur.com/x1GKUQV.png" alt="Screenshot"/>
+  <img src="http://i.imgur.com/od1A8xU.png" alt="Screenshot"/>
 </p>
 ## License
 Based on [2048](https://github.com/gabrielecirulli/2048) by Gabriele Cirulli. 
 
 Released under the [MIT license.](https://github.com/gabrielecirulli/2048/blob/master/LICENSE.txt)
 ## Future plans
- - Add features to README.md
+ - Add a features section to README.md
  - Replay system
  - PvP
  - PvAI
  - AIvAI?
  - More statistics
- - > 2048 tile
- - Comment code
+ - Improve code readability
